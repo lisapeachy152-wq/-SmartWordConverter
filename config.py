@@ -1,9 +1,15 @@
 import os
 from dotenv import load_dotenv
 
+# Load environment variables
 load_dotenv()
 
 class Config:
     BOT_TOKEN = os.getenv("BOT_TOKEN")
-    if not BOT_TOKEN:
-        raise ValueError("BOT_TOKEN not found in environment variables")
+    
+    @classmethod
+    def validate(cls):
+        """Validate required configuration"""
+        if not cls.BOT_TOKEN:
+            raise ValueError("BOT_TOKEN is not set in environment variables")
+        return True
